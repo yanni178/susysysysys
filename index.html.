@@ -9,133 +9,284 @@
 
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-header {
-  padding: 25px;
-  border-bottom: 1px solid #302719;
-  text-align: center;
+.gold {
+    color: #d6ad55;
+}
+
+.screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.screen::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #c99b35;
+    filter: blur(130px);
+    opacity: 0.12;
+    border-radius: 50%;
+    top: 20%;
+    z-index: 0;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 500px;
 }
 
 .logo {
-  color: #d8b56b;
-  font-size: 23px;
-  font-weight: bold;
-  letter-spacing: 5px;
-}
-
-main {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 25px;
-}
-
-.symbol {
-  width: 85px;
-  height: 85px;
-  border: 1px solid #d8b56b;
-  border-radius: 22px;
-  display: grid;
-  place-items: center;
-  color: #d8b56b;
-  font-size: 38px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 30px #d8b56b30;
+    font-size: 13px;
+    letter-spacing: 7px;
+    color: #d6ad55;
+    margin-bottom: 35px;
+    animation: fadeIn 1.5s ease;
 }
 
 h1 {
-  color: #e3c47f;
-  font-size: 38px;
-  letter-spacing: 4px;
-  margin-bottom: 12px;
+    font-size: clamp(38px, 10vw, 58px);
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    animation: rise 1.2s ease both;
 }
 
 .subtitle {
-  color: #a88b55;
-  font-size: 12px;
-  letter-spacing: 5px;
-  margin-bottom: 30px;
-}
-
-.description {
-  color: #999;
-  font-size: 14px;
-  line-height: 1.8;
-  max-width: 300px;
-  margin-bottom: 35px;
+    color: #999;
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 1.8;
+    animation: rise 1.5s ease both;
 }
 
 button {
-  background: linear-gradient(135deg, #e6c77e, #a77b35);
-  color: #080808;
-  border: none;
-  padding: 17px 35px;
-  border-radius: 8px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  cursor: pointer;
+    margin-top: 45px;
+    padding: 17px 45px;
+    background: linear-gradient(135deg, #f0d18a, #bd8d36);
+    border: none;
+    border-radius: 5px;
+    color: #080808;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 25px #bd8d3630;
+    animation: fadeIn 2s ease both;
 }
 
-#mensagem {
-  color: #d8b56b;
-  margin-top: 25px;
-  font-size: 13px;
+button:active {
+    transform: scale(0.95);
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #766344;
-  font-size: 11px;
-  letter-spacing: 2px;
+button:hover {
+    box-shadow: 0 0 30px #d6ad5580;
+    transform: translateY(-3px);
+}
+
+#home {
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+#home.hide {
+    opacity: 0;
+    transform: translateY(-50px);
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+}
+
+#dashboard {
+    display: none;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+#dashboard.show {
+    display: flex;
+    animation: reveal 1s ease forwards;
+}
+
+.welcome {
+    font-size: 30px;
+    margin-bottom: 12px;
+    color: #d6ad55;
+}
+
+.description {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.card {
+    border: 1px solid #3b301d;
+    background: linear-gradient(145deg, #15130f, #0b0b0b);
+    border-radius: 10px;
+    padding: 25px 20px;
+    margin: 14px 0;
+    text-align: left;
+    transition: 0.3s;
+    animation: rise 0.8s ease both;
+}
+
+.card:hover {
+    border-color: #d6ad55;
+    transform: translateY(-4px);
+}
+
+.card h3 {
+    color: #d6ad55;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.footer {
+    margin-top: 45px;
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">NEXORA STUDIOS</div>
-</header>
+<section class="screen" id="home">
+    <div class="content">
 
-<main>
-  <div class="symbol">N</div>
+        <div class="logo">NEXORA PRESENTS</div>
 
-  <h1>NEXORA</h1>
-  <div class="subtitle">STUDIOS</div>
+        <h1>NEXORA<br><span class="gold">STUDIOS</span></h1>
 
-  <p class="description">
-    Criatividade, tecnologia e inovação.
-    Transformando ideias em experiências digitais.
-  </p>
+        <p class="subtitle">
+            CRIATIVIDADE QUE TRANSFORMA IDEIAS.<br>
+            DESIGN QUE MARCA PRESENÇA.
+        </p>
 
-  <button onclick="iniciar()">COMEÇAR AGORA</button>
+        <button onclick="entrar()">ENTRAR</button>
 
-  <p id="mensagem"></p>
-</main>
+        <div class="footer">EST. 2026 · NEXORA STUDIOS</div>
 
-<footer>
-  NEXORA STUDIOS © 2026
-</footer>
+    </div>
+</section>
+
+<section class="screen" id="dashboard">
+    <div class="content">
+
+        <div class="logo">NEXORA STUDIOS</div>
+
+        <h2 class="welcome">Bem-vindo.</h2>
+
+        <p class="description">
+            Um espaço onde ideias ganham forma.<br>
+            Explore nosso universo criativo.
+        </p>
+
+        <div class="card">
+            <h3>01 · Identidade Visual</h3>
+            <p>Criação de marcas, logotipos e identidades únicas.</p>
+        </div>
+
+        <div class="card">
+            <h3>02 · Design Digital</h3>
+            <p>Artes digitais, layouts e experiências visuais.</p>
+        </div>
+
+        <div class="card">
+            <h3>03 · Projetos Criativos</h3>
+            <p>Transformamos conceitos em projetos especiais.</p>
+        </div>
+
+        <button onclick="voltar()">VOLTAR AO INÍCIO</button>
+
+        <div class="footer">NEXORA STUDIOS · TODOS OS DIREITOS RESERVADOS</div>
+
+    </div>
+</section>
 
 <script>
-function iniciar() {
-  document.getElementById("mensagem").textContent =
-    "Bem-vindo à Nexora Studios.";
+function entrar() {
+    const home = document.getElementById("home");
+    const dashboard = document.getElementById("dashboard");
+
+    home.classList.add("hide");
+
+    setTimeout(() => {
+        home.style.display = "none";
+        dashboard.style.display = "flex";
+
+        requestAnimationFrame(() => {
+            dashboard.classList.add("show");
+        });
+    }, 700);
+}
+
+function voltar() {
+    const home = document.getElementById("home");
+    const dashboard = document.getElementById("dashboard");
+
+    dashboard.style.display = "none";
+    dashboard.classList.remove("show");
+
+    home.style.display = "flex";
+    home.classList.remove("hide");
 }
 </script>
 
